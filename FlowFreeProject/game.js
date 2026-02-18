@@ -44,7 +44,9 @@ let c1=null, c2=null;
 for (let i = 0; i < gameBoard.children.length; i++) {
     gameBoard.children[i].addEventListener("click", handleMouseDown);
     gameBoard.children[i].addEventListener("mouseover", handleMouseEnter);
-    gameBoard.children[i].addEventListener("mouseout", handleMouseUp);
+
+    
+
 
 }
 function handleMouseDown(event) 
@@ -55,17 +57,28 @@ function handleMouseDown(event)
         {
              c1=event.target;
        
-            c1.style.border="2px solid black";
+
+        c1.style.border="2px solid black";
+ 
 
         }
         
+    }
+    else if(c2!=null)
+
+    {
+       c1=null;
+       c2.style.border="1px solid #ccc";
+       c2=null;
     }
    
 
 }
 function handleMouseEnter(event) 
 {
-    if(c1!=null )
+
+    if(c1!=null)
+
     {
         c2=event.target;
         c2.style.border="2px solid black";
@@ -73,13 +86,4 @@ function handleMouseEnter(event)
     }
 
 }
-function handleMouseUp(event)
- {
 
-    if(c1!=null && c2!=null)
-    {
-        c1=null;
-        c2.style.border="1px solid #ccc";
-        c2=null;
-    }
- }
