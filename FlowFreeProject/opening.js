@@ -7,6 +7,7 @@ function createLevels(containerId, colorClass) {
         level.textContent = i;
 
         level.addEventListener("click", () => {
+
             level.classList.toggle("completed");
             console.log("Start level", i);
         });
@@ -14,7 +15,10 @@ function createLevels(containerId, colorClass) {
         grid.appendChild(level);
     }
 }
+function goToPage(grade)
+{
 
+}
 createLevels("grid5", "red");
 createLevels("grid6", "green");
 createLevels("grid7", "blue");
