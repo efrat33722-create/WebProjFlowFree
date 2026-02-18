@@ -34,9 +34,52 @@ for (let i = 0; i < size; i++) {
     }
 }
 
-// צבע את נקודות ההתחלה והסיום של כל צבע
+// צובע את נקודות ההתחלה והסיום של כל צבע
 for (let colorObj of currentLevel) {
     let {start, end, color} = colorObj;
     cells[start.row][start.col].style.backgroundColor = color;
     cells[end.row][end.col].style.backgroundColor = color;
 }
+let c1=null, c2=null;
+for (let i = 0; i < gameBoard.children.length; i++) {
+    gameBoard.children[i].addEventListener("click", handleMouseDown);
+    gameBoard.children[i].addEventListener("mouseover", handleMouseEnter);
+    gameBoard.children[i].addEventListener("mouseout", handleMouseUp());
+
+}
+function handleMouseDown(event) 
+{
+    if(c1==null)
+    {
+        if(event.target.style.backgroundColor!="")
+        {
+             c1=event.target;
+       
+        c1.style.border="2px solid black";
+
+        }
+        
+    }
+   
+
+}
+function handleMouseEnter(event) 
+{
+    if(c1!=null)
+    {
+        c2=event.target;
+        c2.style.border="2px solid black";
+        event.target.style.backgroundColor=c1.style.backgroundColor;
+    }
+
+}
+function handleMouseUp(event)
+ {
+
+    if(c1!=null && c2==null)
+    {
+        c1=null;
+        c2.style.border="1px solid #ccc";
+        c2=null;
+    }
+ }
