@@ -16,7 +16,7 @@ body {
   /* הגדלת הלוח - 80px לכל משבצת */
   grid-template-columns: repeat(5, 80px);
   grid-template-rows: repeat(5, 80px);
-  gap: 12px;
+  
   background: rgba(255, 255, 255, 0.05); /* לוח חצי שקוף */
   padding: 25px;
   border-radius: 20px;
