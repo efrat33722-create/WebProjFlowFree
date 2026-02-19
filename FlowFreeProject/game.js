@@ -1,6 +1,12 @@
 const params = new URLSearchParams(window.location.search);
 const id = Number(params.get("level"));  // המרה למספר
-
+// קוד להוספה בראש כל דף פנימי
+const user = sessionStorage.getItem("currentUser");
+console.log("Current User:", user);
+if (!user) {
+    alert("עליך להתחבר קודם!");
+    window.location.href = "register.html";
+}
 console.log("Level ID:", id);
 let gameLevels = [
 
@@ -11,16 +17,142 @@ let gameLevels = [
         { color: "green",  start: {row:3,col:1}, end: {row:0,col:2} },
         { color: "yellow", start: {row:0,col:4}, end: {row:3,col:3} },
         { color: "orange", start: {row:1,col:4}, end: {row:4,col:3} }
-    ]
-];
+    ],
+    // שלב 2 מתוך צילום המסך
+    [
+        { color: "yellow", start: {row: 0, col: 0}, end: {row: 3, col: 4} },
+        { color: "green",  start: {row: 2, col: 2}, end: {row: 3, col: 1} },
+        { color: "blue",   start: {row: 3, col: 0}, end: {row: 4, col: 4} },
+        { color: "red",    start: {row: 3, col: 2}, end: {row: 4, col: 0} }
+    ],
+    // Level 3
+    [
+        { color: "yellow", start: {row: 0, col: 1}, end: {row: 3, col: 0} },
+        { color: "blue",   start: {row: 0, col: 2}, end: {row: 4, col: 0} },
+        { color: "green",  start: {row: 0, col: 3}, end: {row: 4, col: 3} },
+        { color: "red",    start: {row: 1, col: 3}, end: {row: 2, col: 2} },
+        { color: "orange", start: {row: 3, col: 3}, end: {row: 4, col: 2} }
+    ],
+    // Level 4
+    [
+        { color: "red",    start: {row: 0, col: 3}, end: {row: 1, col: 0} },
+        { color: "green",  start: {row: 0, col: 4}, end: {row: 4, col: 0} },
+        { color: "yellow", start: {row: 2, col: 2}, end: {row: 4, col: 2} },
+        { color: "blue",   start: {row: 3, col: 3}, end: {row: 4, col: 1} }
+    ],
+    // Level 5
+    [
+        { color: "red",    start: {row: 0, col: 3}, end: {row: 4, col: 2} },
+        { color: "green",  start: {row: 0, col: 4}, end: {row: 1, col: 3} },
+        { color: "yellow", start: {row: 1, col: 1}, end: {row: 4, col: 4} },
+        { color: "blue",   start: {row: 1, col: 2}, end: {row: 3, col: 4} }
+    ],
+    // Level 1 (image_f35240) - 6 חיבורים
+    [
+        { color: "blue",   start: {row: 0, col: 6}, end: {row: 6, col: 5} },
+        { color: "orange", start: {row: 1, col: 5}, end: {row: 2, col: 1} },
+        { color: "red",    start: {row: 1, col: 6}, end: {row: 5, col: 4} },
+        { color: "green",  start: {row: 3, col: 3}, end: {row: 4, col: 2} },
+        { color: "cyan",   start: {row: 3, col: 4}, end: {row: 6, col: 6} },
+        { color: "yellow", start: {row: 4, col: 4}, end: {row: 5, col: 5} }
+    ],
+    // Level 2 (image_f35263) - 7 חיבורים
+    [
+        { color: "magenta",start: {row: 0, col: 1}, end: {row: 6, col: 2} },
+        { color: "red",    start: {row: 0, col: 2}, end: {row: 6, col: 3} },
+        { color: "orange", start: {row: 1, col: 2}, end: {row: 5, col: 2} },
+        { color: "blue",   start: {row: 1, col: 3}, end: {row: 1, col: 5} },
+        { color: "green",  start: {row: 2, col: 2}, end: {row: 3, col: 5} },
+        { color: "cyan",   start: {row: 3, col: 2}, end: {row: 4, col: 5} },
+        { color: "yellow", start: {row: 4, col: 3}, end: {row: 4, col: 4} }
+    ],
+    // Level 3 (image_f35284) - 8 חיבורים (מאתגר!)
+    [
+        { color: "cyan",   start: {row: 0, col: 0}, end: {row: 1, col: 6} },
+        { color: "yellow", start: {row: 1, col: 0}, end: {row: 2, col: 6} },
+        { color: "magenta",start: {row: 2, col: 0}, end: {row: 2, col: 3} },
+        { color: "orange", start: {row: 2, col: 4}, end: {row: 4, col: 5} },
+        { color: "green",  start: {row: 2, col: 5}, end: {row: 3, col: 6} },
+        { color: "red",    start: {row: 3, col: 3}, end: {row: 4, col: 6} },
+        { color: "blue",   start: {row: 4, col: 0}, end: {row: 6, col: 6} },
+        { color: "brown",  start: {row: 3, col: 0}, end: {row: 5, col: 1} }
+    ],
+    // Level 4 (image_f352b9) - 5 חיבורים
+    [
+        { color: "green",  start: {row: 1, col: 0}, end: {row: 6, col: 0} },
+        { color: "yellow", start: {row: 2, col: 2}, end: {row: 3, col: 4} },
+        { color: "orange", start: {row: 4, col: 2}, end: {row: 5, col: 4} },
+        { color: "blue",   start: {row: 4, col: 4}, end: {row: 5, col: 1} },
+        { color: "red",    start: {row: 5, col: 0}, end: {row: 5, col: 5} }
+    ],
+    // Level 5 (image_f35568) - 6 חיבורים
+    [
+        { color: "cyan",   start: {row: 0, col: 0}, end: {row: 5, col: 1} },
+        { color: "blue",   start: {row: 0, col: 1}, end: {row: 3, col: 4} },
+        { color: "yellow", start: {row: 0, col: 2}, end: {row: 2, col: 3} },
+        { color: "green",  start: {row: 1, col: 5}, end: {row: 4, col: 4} },
+        { color: "red",    start: {row: 2, col: 1}, end: {row: 4, col: 2} },
+        { color: "orange", start: {row: 3, col: 1}, end: {row: 5, col: 6} }
+    ],
+     // Level 1 (image_f3592b) - 9 חיבורים
+    [
+        { color: "red",    start: {row: 1, col: 1}, end: {row: 4, col: 4} },
+        { color: "cyan",   start: {row: 1, col: 2}, end: {row: 2, col: 3} },
+        { color: "blue",   start: {row: 1, col: 3}, end: {row: 2, col: 6} },
+        { color: "orange", start: {row: 2, col: 4}, end: {row: 2, col: 5} },
+        { color: "magenta",start: {row: 3, col: 6}, end: {row: 5, col: 1} },
+        { color: "green",  start: {row: 4, col: 1}, end: {row: 4, col: 3} },
+        { color: "yellow", start: {row: 5, col: 0}, end: {row: 6, col: 1} },
+        { color: "brown",  start: {row: 5, col: 6}, end: {row: 7, col: 1} },
+        { color: "purple", start: {row: 5, col: 7}, end: {row: 6, col: 0} }
+    ],
+    // Level 2 (image_f3594a) - 8 חיבורים
+    [
+        { color: "blue",   start: {row: 0, col: 0}, end: {row: 3, col: 7} },
+        { color: "brown",  start: {row: 0, col: 7}, end: {row: 3, col: 0} },
+        { color: "red",    start: {row: 3, col: 4}, end: {row: 6, col: 2} },
+        { color: "magenta",start: {row: 3, col: 6}, end: {row: 5, col: 6} },
+        { color: "green",  start: {row: 4, col: 4}, end: {row: 7, col: 4} },
+        { color: "cyan",   start: {row: 4, col: 7}, end: {row: 6, col: 5} },
+        { color: "orange", start: {row: 5, col: 1}, end: {row: 6, col: 1} },
+        { color: "yellow", start: {row: 5, col: 4}, end: {row: 7, col: 3} }
+    ],
 
+    // Level 3 (image_f35969) - 7 חיבורים
+    [
+        { color: "green",  start: {row: 0, col: 7}, end: {row: 4, col: 8} },
+        { color: "blue",   start: {row: 1, col: 2}, end: {row: 4, col: 5} },
+        { color: "yellow", start: {row: 1, col: 3}, end: {row: 3, col: 6} },
+        { color: "orange", start: {row: 2, col: 1}, end: {row: 4, col: 3} },
+        { color: "magenta",start: {row: 3, col: 1}, end: {row: 5, col: 8} },
+        { color: "red",    start: {row: 3, col: 5}, end: {row: 5, col: 5} },
+        { color: "cyan",   start: {row: 5, col: 4}, end: {row: 5, col: 8} }
+    ],
+    // Level 4 (image_f35988) - 7 חיבורים
+    [
+        { color: "yellow", start: {row: 0, col: 0}, end: {row: 3, col: 7} },
+        { color: "orange", start: {row: 0, col: 1}, end: {row: 1, col: 3} },
+        { color: "cyan",   start: {row: 0, col: 8}, end: {row: 6, col: 4} },
+        { color: "green",  start: {row: 1, col: 8}, end: {row: 3, col: 4} },
+        { color: "red",    start: {row: 3, col: 8}, end: {row: 4, col: 4} },
+        { color: "blue",   start: {row: 4, col: 8}, end: {row: 7, col: 8} },
+        { color: "magenta",start: {row: 5, col: 8}, end: {row: 6, col: 8} }
+    ]
+
+];
+let  size;
+if(id<=5) size=5;
+else if(id<=10) size=7;
+else size=9;
 let currentLevel = gameLevels[id-1];
 console.log(gameLevels);
 console.log(currentLevel);
 let gameBoard = document.getElementById("game-container");
-gameBoard.style.gridTemplateColumns = `repeat(${currentLevel.length}, 1fr)`;
-gameBoard.style.gridTemplateRows = `repeat(${currentLevel.length}, 1fr)`;
-const size = currentLevel.length; 
+gameBoard.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+gameBoard.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+
+
 let cells = [];
 for (let i = 0; i < size; i++) {
     cells[i] = [];
@@ -80,6 +212,13 @@ function handleMouseEnter(event)
         c2=event.target;
         c2.style.border="2px solid black";
         event.target.style.backgroundColor=c1.style.backgroundColor;
+        c2.classList.add("cell-filled"); // מפעיל את ה-Glow מה-CSS הקודם
+        
+        // 2. יצירת אפקט ה-Path (הקו שצומח)
+        const path = document.createElement("div");
+        path.className = "path visible";
+        path.style.backgroundColor = c1.style.backgroundColor;
+        c2.appendChild(path);
          }
 
     }
@@ -110,4 +249,33 @@ if(p1.row==p2.row && Math.abs(p1.col-p2.col)==1)
 
 return false;
 
+}
+
+window.addEventListener("beforeunload", function () {
+    localStorage.removeItem("currentUser");
+});
+// פונקצית עיצוב לטיפול באינטראקציה עם תאי המשחק (למשל, כאשר המשתמש מצייר קו בין שתי נקודות)
+function handleCellInteraction(cell) {
+    if (!isDrawing || cell === lastCell) return;
+
+    // צביעת הרקע של המשבצת באותו צבע (בשקיפות נמוכה אם רוצים)
+    cell.style.backgroundColor = currentColor.replace(')', ', 0.2)').replace('rgb', 'rgba');
+    
+    // מציאת או יצירת הקו בתוך המשבצת
+    let path = cell.querySelector('.path');
+    if (!path) {
+        path = document.createElement("div");
+        path.className = "path";
+        cell.appendChild(path);
+    }
+
+    // הגדרת הצבע והפעלת האנימציה
+    path.style.backgroundColor = currentColor;
+    
+    // timeout קטן גורם ל-transition לעבוד בצורה חלקה
+    setTimeout(() => {
+        path.classList.add("visible");
+    }, 10);
+
+    lastCell = cell;
 }
