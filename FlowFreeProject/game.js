@@ -41,12 +41,10 @@ for (let colorObj of currentLevel) {
     cells[end.row][end.col].style.backgroundColor = color;
 }
 let c1=null, c2=null;
+
 for (let i = 0; i < gameBoard.children.length; i++) {
     gameBoard.children[i].addEventListener("click", handleMouseDown);
     gameBoard.children[i].addEventListener("mouseover", handleMouseEnter);
-
-    
-
 
 }
 function handleMouseDown(event) 
@@ -66,10 +64,12 @@ function handleMouseDown(event)
     }
     else if(c2!=null)
 
+
     {
        c1=null;
        c2.style.border="1px solid #ccc";
        c2=null;
+
     }
    
 
@@ -77,13 +77,57 @@ function handleMouseDown(event)
 function handleMouseEnter(event) 
 {
 
-    if(c1!=null)
 
+    let prev=c2||c1;
+    if(checkMove(event.target,prev))
     {
+        if(c1!=null)
+         {
+       
         c2=event.target;
         c2.style.border="2px solid black";
         event.target.style.backgroundColor=c1.style.backgroundColor;
+         }
+
     }
+    
+   
+    
+
+
+}
+function checkStep(){
+    
+}
+function checkWin()
+{
+    for(let colorObj of currentLevel)
+    {
+        let {end, color} = colorObj;
+        if(cells[end.row][end.col].style.backgroundColor!=color)
+        return false;
+    }
+    return true;
+}
+function checkMove(target1,c3) 
+{
+    
+    let p1,p2;
+for(let i=0;i<cells.length;i++){
+    for(let j=0;j<cells[i].length;j++){
+        if(cells[i][j]==c3)
+            p1={row:i,col:j};
+        if(cells[i][j]==target1)
+            p2={row:i,col:j};
+    }
+}
+if (!p1 || !p2) return false;
+if(p1.col==p2.col && Math.abs(p1.row-p2.row)==1)
+    return true;
+if(p1.row==p2.row && Math.abs(p1.col-p2.col)==1)
+    return true;
+
+return false;
 
 }
 
