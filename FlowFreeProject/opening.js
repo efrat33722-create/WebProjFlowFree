@@ -1,6 +1,13 @@
+
+const user = sessionStorage.getItem("currentUser");
+if (!user) {
+    alert("עליך להתחבר קודם!");
+    window.location.href = "register.html";
+}
+let cnt=1;
 function createLevels(containerId, colorClass) {
     const grid = document.getElementById(containerId);
-    let cnt=1;
+    
 
     for (let i = 1; i <= 5; i++) {
         const level = document.createElement("div");
@@ -27,3 +34,7 @@ function goToPage(id) {
 createLevels("grid5", "red");
 createLevels("grid6", "green");
 createLevels("grid7", "blue");
+function logout() {
+    sessionStorage.removeItem("currentUser");
+    window.location.href = "register.html";
+}

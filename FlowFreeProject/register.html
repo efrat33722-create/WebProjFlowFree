@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="landing-container">
+    <header>
+       
+        <h1> FLOW FREE</h1>
+    </header>
+
+    <main class="auth-card">
+        <form id="registerForm">
+            <h2>כניסת משתמש</h2>
+            
+            <div class="input-group">
+                <label for="reg-username">בחר שם משתמש:</label>
+                <input type="text" id="username" placeholder="לפחות 3 תווים..." required>
+            </div>
+
+            <div class="input-group">
+                <label for="reg-password">בחר סיסמה:</label>
+                <input type="password" id="password" placeholder="לפחות 4 תווים..." required>
+            </div>
+
+              <div class="input-group">
+                <label for="email"></label>אימייל:</label>
+                <input type="email" id="email" placeholder="הקלד את האימייל שלך..." required>
+            </div>
+
+            <div id="register-message" class="message"></div>
+
+            <div class="actions">
+                <button type="button" class="main-btn" onclick="login()">היכנס</button>
+              
+            </div>
+        </form>
+    </main>
+</div>
+    <script src="register.js"></script>
+</body>
+</html>
